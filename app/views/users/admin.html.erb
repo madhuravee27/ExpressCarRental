@@ -1,0 +1,17 @@
+<% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+<% end %>
+
+<h3> Welcome <%= current_user.name %></h3>
+
+<%= link_to "List all cars", 'cars#index', :class => "btn btn-primary" %>
+<%= link_to "View all customers", '/indexcustomers', :class => "btn btn-primary" %>
+<%= link_to "View all admins", '/indexadmin', :class => "btn btn-primary" %>
+<%= link_to "View all super admins", '/indexsuperadmin', :class => "btn btn-primary" %>
+<%= link_to "Book for customer", new_reservation_path, :class => "btn btn-primary" %>
+<%= link_to "Reservation history", '/reservationlog', :class => "btn btn-primary" %>
+<%= link_to "Current reservation", '/currentreservations', :class => "btn btn-primary" %>
+<%= link_to "Edit profile", edit_user_path(current_user.id), :class => "btn btn-primary" %>
+
+
+

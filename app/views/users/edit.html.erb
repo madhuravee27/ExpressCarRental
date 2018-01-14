@@ -1,0 +1,58 @@
+<% if (current_user.role == 'Customer' || ((current_user.role == 'Admin' || current_user.role == 'Super admin') && @user.role == 'Customer'))%>
+<h2>Edit customer</h2>
+    <% else %>
+    <h2>Edit profile</h2>
+    <% end %>
+<% if flash[:alert] %>
+<p id ="notice"><%= flash[:alert] %>
+  </p>
+  <% end %>
+
+<%= form_for @user do |f| %>
+    <p>
+      <%= f.label :first_name %><br>
+      <%= f.text_field :first_name %>
+    </p>
+
+    <p>
+      <%= f.label :last_name %><br>
+      <%= f.text_field :last_name %>
+    </p>
+<% unless ((current_user.email == 'nathen@gmail.com' && @user.email == 'nathen@gmail.com') || (current_user.email == 'stacey@gmail.com' && @user.email == 'stacey@gmail.com')) %>
+    <p>
+      <%= f.label :email %><br>
+      <%= f.text_field :email %>
+    </p>
+    <% end %>
+
+    <% if current_user.id == @user.id %>
+        <% unless ((current_user.email == 'nathen@gmail.com') || (current_user.email == 'stacey@gmail.com')) %>
+        <p>
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>
+    </p>
+
+    <p>
+    <%= f.label :password_confirmation %><br><br>
+    <%= f.password_field :password_confirmation %>
+    </p>
+        <% end %>
+    <%= f.submit "Apply changes", :class => "btn btn-primary" %>
+        <% end %>
+        <% end %>
+
+<% if current_user.role == 'Customer' %>
+    <%= link_to 'Back', '/customer', :class => "btn btn-primary" %>
+    <% end %>
+<% if (@user.role == 'Customer' && (current_user.role == 'Admin' || current_user.role == 'Super admin'))%>
+    <%= link_to 'Back', '/indexcustomers', :class => "btn btn-primary" %>
+<% end %>
+<% if (current_user.role = 'Admin' && @user.role == 'Admin')%>
+    <%= link_to 'Back', '/admin', :class => "btn btn-primary" %>
+<% end %>
+<% if (current_user.role = 'Super admin' && @user.role == 'Super admin') %>
+    <%= link_to 'Back', '/superadmin', :class => "btn btn-primary" %>
+<% end %>
+
+
+

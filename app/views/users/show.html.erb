@@ -1,0 +1,37 @@
+  <p>
+  <b>First name:</b>
+  <%= @user.first_name %>
+</p>
+
+<p>
+  <b>Last name:</b>
+  <%= @user.last_name %>
+</p>
+
+<p>
+  <b>Email id:</b>
+  <%= @user.email %>
+</p>
+
+<p>
+<% if @user.role == "Customer" %>
+<%= link_to 'Edit', edit_user_path(@user), :class => "btn btn-primary" %>
+      <%= link_to 'View reservations', controller: :reservations, action: :viewreservations, user_id: @user, :method => :get , :class => "btn btn-primary" %>
+<% end %>
+
+    <% if @user.role == 'Customer' %>
+    <%= link_to "Make admin", controller: :users, action: :makeadmin, id: @user, :method => :put, :class => "btn btn-primary"  %>
+      <%= link_to "Make super admin", controller: :users, action: :makesuperadmin, id: @user, :method => :put, :class => "btn btn-primary"  %>
+        <% end %>
+     <% if @user.role == 'Admin' %>
+            <%= link_to "Make super admin", controller: :users, action: :makesuperadmin, id: @user, :method => :put, :class => "btn btn-primary"  %>
+        <% end %>
+    <% unless @user.role == 'Super admin' %>
+<%= link_to 'Delete user', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-primary" %></p>
+        <% end %>
+        <br>
+  <% if @user.role == "Customer" %>
+      <%= link_to 'Back', '/indexcustomers', :class => "btn btn-primary" %>
+  <% else %>
+      <%= link_to 'Back', '/indexadmin', :class => "btn btn-primary" %>
+  <% end %>
